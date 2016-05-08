@@ -1,8 +1,10 @@
+const {cached} = require('./cache');
 const fetch = require('node-fetch');
-const uid = require('./uid');
 const R = require('ramda');
+const uid = require('./uid');
+const {LocalDate} = require('js-joda');
 
-module.exports = (storeId) => {
+function downloadData(storeId) {
   const cb = uid('u');
   return fetch(
     'http://www.k-ruoka.fi/api/usertools/GetUserStoreSpecifics?callback=' + cb,
@@ -22,5 +24,16 @@ module.exports = (storeId) => {
       }
       return JSON.parse(m[1])[0];
     })
-    .then(R.merge({$mtime: +new Date()}));
+    .then(R.merge({
+      $date: LocalDate.now().toString()
+    }));
+}
+
+module.exports = (storeId) => {
+  return cached(
+    `kmarket-${storeId}`,
+    () => downloadData(storeId),
+    60 * 10,
+    (val) => (val && val.$date == LocalDate.now().toString())
+  );
 };

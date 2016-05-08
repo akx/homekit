@@ -13,6 +13,7 @@
     "bluebird": "^3.3.5",
     "commander": "^2.9.0",
     "express": "^4.13.4",
+    "js-joda": "^1.1.1",
     "morgan": "^1.7.0",
     "node-fetch": "^1.5.2",
     "ramda": "^0.21.0",

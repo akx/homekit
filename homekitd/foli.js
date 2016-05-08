@@ -1,8 +1,15 @@
+const {cached} = require('./cache');
 const fetch = require('node-fetch');
-const R = require('ramda');
+
+function getData(stopId) {
+  return fetch('http://data.foli.fi/siri/sm/' + stopId)
+    .then((resp) => resp.json());
+}
 
 module.exports = (stopId) => {
-  return fetch('http://data.foli.fi/siri/sm/' + stopId)
-    .then((resp) => resp.json())
-    .then(R.merge({$mtime: +new Date()}));
+  return cached(
+    `foli-${stopId}`,
+    () => getData(stopId),
+    60
+  );
 };
