@@ -4,6 +4,7 @@ const fs = Promise.promisifyAll(require('fs'));
 const crypto = require('crypto');
 const os = require('os');
 
+const mem = {};
 
 const getFilename = (key) => {
   const hasher = crypto.createHash('sha256');
@@ -12,8 +13,11 @@ const getFilename = (key) => {
 };
 
 const get = (key) => {
-  return fs.readFileAsync(getFilename(key), 'utf8')
-    .then(
+  return new Promise((resolve) => {
+    if (mem[key]) {
+      resolve(mem[key]);
+    }
+    fs.readFileAsync(getFilename(key), 'utf8').then(
       JSON.parse,
       (err) => {
         if (err.code == 'ENOENT') {
@@ -21,11 +25,14 @@ const get = (key) => {
         }
         throw err;
       }
-    )
+    ).then(resolve);
+  })
     .then((data) => {
       if (data === undefined || data.expires < +new Date()) {
+        delete mem[key];
         return undefined;
       }
+      mem[key] = data;
       return data.data;
     });
 };
@@ -35,6 +42,7 @@ const put = (key, value, ttl = 60) => {
     data: value,
     expires: (+new Date() + ttl * 1000)
   };
+  mem[key] = payload;
   return fs.writeFileAsync(getFilename(key), JSON.stringify(payload), 'utf8');
 };
 
