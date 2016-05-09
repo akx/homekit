@@ -4,7 +4,7 @@ const R = require('ramda');
 const uid = require('./uid');
 const moment = require('moment');
 
-const getDateStamp = () => moment().format("YYYY-MM-DD");
+const getDateStamp = () => moment().format('YYYY-MM-DD');
 
 function downloadData(storeId) {
   const cb = uid('u');

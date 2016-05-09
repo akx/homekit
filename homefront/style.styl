@@ -1,0 +1,101 @@
+@css {
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,700);
+}
+
+orange-color = #FD7400
+lime-color = #BEDB39
+bg-color = #2A2C2B
+
+body
+  overflow hidden
+  background bg-color
+  color lime-color
+  margin 0
+
+body
+  font 3.5vmax / 1.5 "Open Sans", sans-serif
+
+section
+  padding-bottom 0.5em
+  .title
+    background lime-color
+    color bg-color
+    text-align center
+    margin-bottom 0.5em
+    font-size 2.5vmax
+    font-weight bold
+
+.columns
+  display flex
+  >div
+    flex 1
+    text-align center
+    padding 0 0.33vw
+
+.foli
+  .i
+    width 14vw
+    &.soon
+      color orange-color
+  .line
+    font-size 2.25em
+    line-height 1
+    font-weight bold
+  .dest
+    font-family "Open Sans Condensed"
+    line-height 1
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+  .eta
+    opacity 0.8
+    font-size 70%
+    .rel
+      line-height 1.2
+      font-family "Open Sans Condensed"
+
+.weather
+  .arrow
+    display inline-block
+    line-height 1
+  .hourly-summary, .daily-summary
+    font-size 60%
+    font-family "Open Sans Condensed"
+    line-height 1.5
+    overflow hidden
+    text-overflow ellipsis
+  .hourly-summary
+    font-weight bold
+  .temp
+    white-space nowrap
+  .hourly
+    margin-top 0.5em
+    .hr
+      font-size 50%
+      white-space nowrap
+      .time
+        font-weight bold
+
+#clock
+  position absolute
+  bottom 0
+  left 0
+  right 0
+  margin auto
+  .inner
+    display inline-block
+    padding 0 1em
+    background alpha(bg-color, 0.9)
+  text-align center
+
+.kmarket
+  .open
+    white-space nowrap
+    label
+      display block
+      font-size 70%
+  .name
+    flex 2
+  .offers
+    font-size 50%
