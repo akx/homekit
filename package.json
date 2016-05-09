@@ -14,7 +14,7 @@
     "commander": "^2.9.0",
     "cors": "^2.7.1",
     "express": "^4.13.4",
-    "js-joda": "^1.1.1",
+    "moment": "^2.13.0",
     "morgan": "^1.7.0",
     "node-fetch": "^1.5.2",
     "ramda": "^0.21.0",

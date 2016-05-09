@@ -2,7 +2,9 @@ const {cached} = require('./cache');
 const fetch = require('node-fetch');
 const R = require('ramda');
 const uid = require('./uid');
-const {LocalDate} = require('js-joda');
+const moment = require('moment');
+
+const getDateStamp = () => moment().format("YYYY-MM-DD");
 
 function downloadData(storeId) {
   const cb = uid('u');
@@ -25,7 +27,7 @@ function downloadData(storeId) {
       return JSON.parse(m[1])[0];
     })
     .then(R.merge({
-      $date: LocalDate.now().toString()
+      $date: getDateStamp()
     }));
 }
 
@@ -34,6 +36,6 @@ module.exports = (storeId) => {
     `kmarket-${storeId}`,
     () => downloadData(storeId),
     60 * 10,
-    (val) => (val && val.$date == LocalDate.now().toString())
+    (val) => (val && val.$date == getDateStamp())
   );
 };
