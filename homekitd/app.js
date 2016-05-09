@@ -4,10 +4,13 @@ const forecast = require('./forecast');
 const foli = require('./foli');
 const Promise = require('bluebird');
 const morgan = require('morgan');
+const cors = require('cors');
+
 
 module.exports = () => {
   const app = express();
   app.use(morgan('combined'));
+  app.use(cors());
 
   app.get('/data', (req, res) => {
     Promise.props({
