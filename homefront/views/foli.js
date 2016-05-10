@@ -17,11 +17,11 @@ const formatFoliEntry = (res) => {
   ]);
 };
 
-const foliView = (data) => m('section.foli', [
+const foliView = (foli) => (foli ? m('section.foli', [
   m('div.title', 'Föli'),
   m('div.columns',
-    R.map(formatFoliEntry, data.foli.result)
+    R.map(formatFoliEntry, foli.result)
   )
-]);
+]) : null);
 
 export default foliView;

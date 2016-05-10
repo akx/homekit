@@ -15,11 +15,10 @@ const clock = () => {
 export const view = () => {
   const data = get();
   return m('div', [
-    foliView(data),
-    weatherView(data),
-    kmarketView(data),
-    clock()
-
+    foliView(data.foli),
+    weatherView(data.forecast),
+    kmarketView(data.kmarket),
+    clock(),
   ]);
 };
 

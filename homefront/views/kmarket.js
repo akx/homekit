@@ -1,17 +1,17 @@
 import m from 'mithril';
 
-const kmarketView = (data) => m(
+const kmarketView = (kmarket) => (kmarket ? m(
   'section.kmarket',
   [
-    m('div.title', `K-Market ${data.kmarket.name}`),
+    m('div.title', `K-Market ${kmarket.name}`),
     m('div.columns', [
       m('div.open.today', [
         m('label', 'Open Today'),
-        m('span', data.kmarket.todayOpen)
+        m('span', kmarket.todayOpen)
       ]),
       m('div.open.tomorrow', [
         m('label', 'Open Tomorrow'),
-        m('span', data.kmarket.tomorrowOpen)
+        m('span', kmarket.tomorrowOpen)
       ])
     ])
     /*
@@ -19,11 +19,11 @@ const kmarketView = (data) => m(
       m("div.offers",
         R.map((o) => m("div",
           `${o.title} ${o.price.euros}.${o.price.cents}€${o.price.unit ? '/' + o.price.unit : ''}`
-        ), data.kmarket.offerTeasers),
+        ), kmarket.offerTeasers),
       )
     )
     */
   ]
-);
+) : null);
 
 export default kmarketView;
