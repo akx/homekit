@@ -7,13 +7,13 @@ const kmarketView = (kmarket) => (kmarket ? m(
     m('div.columns', [
       m('div.open.today', [
         m('label', 'Open Today'),
-        m('span', kmarket.todayOpen)
+        m('span', kmarket.todayOpen),
       ]),
       m('div.open.tomorrow', [
         m('label', 'Open Tomorrow'),
-        m('span', kmarket.tomorrowOpen)
-      ])
-    ])
+        m('span', kmarket.tomorrowOpen),
+      ]),
+    ]),
     /*
     m("div.columns",
       m("div.offers",

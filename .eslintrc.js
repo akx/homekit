@@ -3,25 +3,32 @@ module.exports = {
     "browser": true,
     "commonjs": true,
     "es6": true,
-    "node": true
+    "node": true,
   },
-  "extends": "eslint:recommended",
+  "extends": "airbnb-base",
   "rules": {
     "indent": [
       "error",
-      2
+      2,
     ],
     "linebreak-style": [
       "error",
-      "unix"
+      "unix",
     ],
     "quotes": [
       "error",
-      "single"
+      "single",
     ],
     "semi": [
       "error",
-      "always"
-    ]
+      "always",
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline",
+    ],
+    "object-curly-spacing": ["error", "never"],
+    "array-bracket-spacing": ["error", "never"],
+    "prefer-template": ["warn"],
   }
 };

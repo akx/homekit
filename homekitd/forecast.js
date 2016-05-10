@@ -15,10 +15,10 @@ function getData(lat, lon) {
   return fetch(url).then((res) => res.json());
 }
 
-module.exports = (lat, lon) => {
-  return cached(
+module.exports = (lat, lon) => (
+  cached(
     `forecast-${lat},${lon}`,
     () => getData(lat, lon),
     60 * 10
-  );
-};
+  )
+);

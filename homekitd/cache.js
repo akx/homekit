@@ -12,15 +12,15 @@ const getFilename = (key) => {
   return `${os.tmpdir()}/homekit-${hasher.digest('hex')}.cache`;
 };
 
-const get = (key) => {
-  return new Promise((resolve) => {
+const get = (key) => (
+  new Promise((resolve) => {
     if (mem[key]) {
       resolve(mem[key]);
     }
     fs.readFileAsync(getFilename(key), 'utf8').then(
       JSON.parse,
       (err) => {
-        if (err.code == 'ENOENT') {
+        if (err.code === 'ENOENT') {
           return Promise.resolve(undefined);
         }
         throw err;
@@ -34,26 +34,26 @@ const get = (key) => {
       }
       mem[key] = data;
       return data.data;
-    });
-};
+    })
+);
 
 const put = (key, value, ttl = 60) => {
   const payload = {
     data: value,
-    expires: (+new Date() + ttl * 1000)
+    expires: (+new Date() + ttl * 1000),
   };
   mem[key] = payload;
   return fs.writeFileAsync(getFilename(key), JSON.stringify(payload), 'utf8');
 };
 
-module.exports.cached = (key, getter, expiry = 60, validator = R.identity) => {
-  return get(key).then((val) => {
-    if (validator(val)) {
-      return R.merge({$cache: true}, val);
+module.exports.cached = (key, getter, expiry = 60, validator = R.identity) => (
+  get(key).then((cachedVal) => {
+    if (validator(cachedVal)) {
+      return R.merge({$cache: true}, cachedVal);
     }
-    return getter().then((val) => {
-      put(key, R.merge({$mtime: +new Date()}, val), expiry);
-      return val;
+    return getter().then((newVal) => {
+      put(key, R.merge({$mtime: +new Date()}, newVal), expiry);
+      return newVal;
     });
-  });
-};
+  })
+);

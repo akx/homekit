@@ -16,7 +16,7 @@ module.exports = () => {
     Promise.props({
       kmarket: kmarket('K624'),
       foli: foli('456'),
-      forecast: forecast(60.455, 22.25)
+      forecast: forecast(60.455, 22.25),
     }).then((data) => {
       res.json(data);
     });

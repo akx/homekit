@@ -1,14 +1,15 @@
+/* eslint-disable import/no-unresolved */
 require('!style!css!stylus!./style.styl');
 import m from 'mithril';
 import {reload} from './data';
 
 const remount = () => {
-  const {view} = require('./view.js');
+  const {view} = require('./view.js');  // eslint-disable-line global-require
   m.mount(document.body, {view});
 };
 
 if (module.hot) {
-  module.hot.accept('./view.js', function () {
+  module.hot.accept('./view.js', () => {
     remount();
   });
 }

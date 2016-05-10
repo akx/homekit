@@ -8,7 +8,7 @@ import kmarketView from './views/kmarket';
 const clock = () => {
   const now = moment();
   return m('div#clock', m('.inner', [
-    m('div.time', now.format('HH:mm'))
+    m('div.time', now.format('HH:mm')),
   ]));
 };
 
